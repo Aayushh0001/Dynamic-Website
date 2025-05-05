@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI + TinyDB Website</title>
+</head>
+<body>
+    <h2>Enter something:</h2>
+    <input type="text" id="inputText" />
+    <button onclick="saveItem()">Save</button>
+
+    <ul id="itemList">
+        {% for item in items %}
+        <li>{{ item.item }}</li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        async function saveItem() {
+            const input = document.getElementById("inputText").value;
+            await fetch("/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ item: input }),
+            });
+            location.reload(); // Refresh to show new items
+        }
+    </script>
+</body>
+</html>
